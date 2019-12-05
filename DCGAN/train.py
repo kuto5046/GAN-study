@@ -26,6 +26,15 @@ def generate_img(G, train_dataloader, epoch, batch_size, nz, device):
 
     # 出力
     fig = plt.figure(figsize=(15, 6))
+    plt.tick_params(labelbottom=False,
+                    labelleft=False,
+                    labelright=False,
+                    labeltop=False,
+                    bottom=False,
+                    left=False,
+                    right=False,
+                    top=False)
+    
     for i in range(0, 5):
         # 上段に訓練データを
         plt.subplot(2, 5, i+1)
@@ -136,7 +145,7 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
             iteration += 1
         
         # 画像生成
-        if epoch % 1 == 0: 
+        if epoch % 20 == 0: 
             generate_img(G, dataloader, epoch, batch_size=8, nz=nz, device=device)
         # epochごとのphaseごとのlossと正解率
         # finish_time = time.time()
