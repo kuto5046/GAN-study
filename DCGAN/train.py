@@ -71,14 +71,14 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
     iteration = 1
     logs = []
 
+    # 各epochでの損失を記録
+    G_losses = []
+    D_losses = []
+
     print("Start training!")
     for epoch in tqdm(range(num_epochs)):
 
         # start_time = time.time()
-
-        # 各epochでの損失を記録
-        G_losses = []
-        D_losses = []
 
         # print("Epoch {}/{}".format(epoch, num_epochs))
 
@@ -96,7 +96,7 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
             
             # ラベルの作成
             mini_batch_size = data.size()[0]
-            real_label = torch.full((mini_batch_size,), 1).to(device)
+            real_label = torch.full((mini_batch_size,), 0.8).to(device)  # 真のlabelの値を小さくしてDを強くする
             fake_label = torch.full((mini_batch_size,), 0).to(device)
 
             # 真の画像を判定
