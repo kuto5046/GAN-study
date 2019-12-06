@@ -1,4 +1,5 @@
 import os
+import pickle
 from tqdm import tqdm
 import seaborn as sns
 import matplotlib.pyplot as plt 
@@ -35,13 +36,13 @@ def generate_img(G, train_dataloader, epoch, batch_size, nz, device):
                     right=False,
                     top=False)
     
-    for i in range(0, 5):
+    for i in range(0, 8):
         # 上段に訓練データを
-        plt.subplot(2, 5, i+1)
+        plt.subplot(2, 8, i+1)
         plt.imshow(imges[i][0].cpu().detach().numpy(), 'gray')
 
         # 下段に生成データを表示する
-        plt.subplot(2, 5, 5+i+1)
+        plt.subplot(2, 8, 8+i+1)
         plt.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
 
     plt.savefig(generate_img_path + "Generate_epoch{}.jpg".format(epoch))
@@ -146,7 +147,15 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
         
         # 画像生成
         if epoch % 20 == 0: 
-            generate_img(G, dataloader, epoch, batch_size=8, nz=nz, device=device)
+            generate_img(G, dataloader, epoch, batch_size=16, nz=nz, device=device)
+        
+        # モデルの保存
+        os.makedirs("./output/model/", exist_ok=True)
+        with open("G_model.pickle", mode="wb") as fp:
+            pickle.dump(G, fp)
+        with open("D_model.pickle", mode="wb") as fp:
+            pickle.dump(D, fp)
+        
         # epochごとのphaseごとのlossと正解率
         # finish_time = time.time()
         # print('-------------')
