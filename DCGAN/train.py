@@ -33,7 +33,7 @@ def generate_img(G, epoch, fixed_z, device):
                 top=False)
 
         plt.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
-
+    plt.title("epoch = {}".format(epoch))
     plt.savefig(generate_img_path + "Generate_epoch{}.jpg".format(epoch))
 
 
