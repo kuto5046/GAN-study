@@ -2,6 +2,7 @@ import os
 import urllib.request
 import zipfile
 import tarfile
+import numpy as np
 from PIL import Image
 import torch.utils.data as data
 from torchvision import transforms
@@ -58,6 +59,7 @@ def load_dataset():
             pil_img_f = pil_img_f.resize((64, 64), Image.BICUBIC)  # 64×64に拡大
             pil_img_f.save(file_path)  # 保存
             count2+=1 
+    print("loaded data")
 
 
 def make_datapath_list():
