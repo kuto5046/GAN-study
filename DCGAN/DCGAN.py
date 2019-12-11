@@ -51,7 +51,7 @@ def loss_process(G_losses, D_losses):
 
 def main():
     # 使用パラメータ
-    nz = 100
+    nz = 10
     mini_batch_size = 64
     image_size = 64
     num_epochs = 200
