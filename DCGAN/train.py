@@ -42,12 +42,6 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
     optimizerG = torch.optim.Adam(G.parameters(), G_lr, [beta1, beta2]) 
     optimizerD = torch.optim.Adam(D.parameters(), D_lr, [beta1, beta2])
     
-    # 画像生成可視化用
-    generate_img_path = "./output/generate_img/"
-    os.makedirs(generate_img_path, exist_ok=True)
-    fixed_z = torch.randn(batch_size, nz)
-    fixed_z = fixed_z.view(fixed_z.size(0), fixed_z.size(1), 1, 1)
-
     # 誤差関数の定義
     criterion = nn.BCEWithLogitsLoss(reduction="mean")
 
@@ -61,6 +55,12 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
 
     num_train_imgs = len(dataloader.dataset)
     batch_size = dataloader.batch_size
+
+    # 画像生成可視化用
+    generate_img_path = "./output/generate_img/"
+    os.makedirs(generate_img_path, exist_ok=True)
+    fixed_z = torch.randn(batch_size, nz)
+    fixed_z = fixed_z.view(fixed_z.size(0), fixed_z.size(1), 1, 1)
 
     iteration = 1
     logs = []
