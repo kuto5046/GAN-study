@@ -61,7 +61,7 @@ def main():
     print("Using device: ", device)  
 
     # MNISTデータの読み込み
-    loda_dataset()
+    load_dataset()
 
     # Datasetを作成
     train_data_list = make_datapath_list()
