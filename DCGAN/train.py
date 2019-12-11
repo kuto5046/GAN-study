@@ -90,7 +90,7 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
             
             # ラベルの作成
             mini_batch_size = data.size()[0]
-            real_label = torch.full((mini_batch_size,), 0.8).to(device)
+            real_label = torch.full((mini_batch_size,), 1).to(device)
             fake_label = torch.full((mini_batch_size,), 0).to(device)
 
             # 真の画像を判定
