@@ -144,9 +144,9 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
         
     # モデルの保存
     os.makedirs("./output/model/", exist_ok=True)
-    with open("G_model.pickle", mode="wb") as fp:
+    with open("./output/model/G_model.pickle", mode="wb") as fp:
         pickle.dump(G, fp)
-    with open("D_model.pickle", mode="wb") as fp:
+    with open("./output/model/D_model.pickle", mode="wb") as fp:
         pickle.dump(D, fp)
         
     return G, D, G_losses, D_losses
