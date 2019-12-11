@@ -56,18 +56,21 @@ class Discriminator(nn.Module):
             nn.LeakyReLU(0.1, inplace=True))
 
         self.layer2 = nn.Sequential(
-            nn.Conv2d(image_size, image_size*2, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(image_size, image_size*2, 
+                      kernel_size=4, stride=2, padding=1),
             nn.LeakyReLU(0.1, inplace=True))
 
         self.layer3 = nn.Sequential(
-            nn.Conv2d(image_size*2, image_size*4, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(image_size*2, image_size*4, 
+                      kernel_size=4, stride=2, padding=1),
             nn.LeakyReLU(0.1, inplace=True))
 
         self.layer4 = nn.Sequential(
-            nn.Conv2d(image_size*4, image_size*8, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(image_size*4, image_size*8, 
+                      kernel_size=4, stride=2, padding=1),
             nn.LeakyReLU(0.1, inplace=True))
 
-        self.last = nn.Conv2d(image_size*8, 1, kernel_size=4, stride=1)  # 出力は0 or 1
+        self.last = nn.Conv2d(image_size*8, 1, kernel_size=4, stride=1)
 
     def forward(self, x):
         out = self.layer1(x)
