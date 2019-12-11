@@ -22,7 +22,7 @@ def generate_img(G, epoch, fixed_z, device):
     
     for i in range(0, 10):
         # 上段に訓練データを
-        plt.subplot(5, 2, i+1)
+        plt.subplot(2, 5, i+1)
         plt.tick_params(labelbottom=False,
                 labelleft=False,
                 labelright=False,
