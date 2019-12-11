@@ -59,7 +59,7 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
     # 画像生成可視化用
     generate_img_path = "./output/generate_img/"
     os.makedirs(generate_img_path, exist_ok=True)
-    fixed_z = torch.randn(batch_size, nz)
+    fixed_z = torch.randn(10, nz)
     fixed_z = fixed_z.view(fixed_z.size(0), fixed_z.size(1), 1, 1)
 
     iteration = 1
