@@ -18,7 +18,7 @@ from torchvision import transforms
 
 from model import Generator, Discriminator, weights_init
 from train import train_model
-from data_pipeline import make_datapath_list, ImageTransform, GAN_Img_Dataset
+from data_pipeline import load_dataset, make_datapath_list, ImageTransform, GAN_Img_Dataset
 
 # Setup seeds
 def seed_everything(seed=0):
@@ -59,6 +59,9 @@ def main():
     # GPUの選択
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("Using device: ", device)  
+
+    # MNISTデータの読み込み
+    loda_dataset()
 
     # Datasetを作成
     train_data_list = make_datapath_list()

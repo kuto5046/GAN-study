@@ -11,7 +11,9 @@ import torch.optim as optim
 
 # 生成画像と訓練データを可視化する
 def generate_img(G, epoch, fixed_z, device):
-
+    
+    generate_img_path = "./output/generate_img/"
+    os.makedirs(generate_img_path, exist_ok=True)
     # 画像生成
     fake_images = G(fixed_z.to(device))
 
@@ -57,8 +59,6 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
     batch_size = dataloader.batch_size
 
     # 画像生成可視化用
-    generate_img_path = "./output/generate_img/"
-    os.makedirs(generate_img_path, exist_ok=True)
     fixed_z = torch.randn(10, nz)
     fixed_z = fixed_z.view(fixed_z.size(0), fixed_z.size(1), 1, 1)
 
