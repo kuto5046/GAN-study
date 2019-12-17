@@ -9,31 +9,41 @@ import torch.nn as nn
 import torch.optim as optim
 
 
-# 生成画像と訓練データを可視化する
+# 生成画像を可視化する
 def generate_img(G, epoch, fixed_z, device):
     
     generate_img_path = "./output/generate_img/"
     os.makedirs(generate_img_path, exist_ok=True)
+    
     # 画像生成
-    fake_images = G(fixed_z.to(device))
+    fake_images, attention_map1, attention_map2 = G(fixed_z.to(device))
 
     # 出力
     fig = plt.figure(figsize=(15, 6))
-    
-    for i in range(0, 10):
-        # 上段に訓練データを
-        plt.subplot(2, 5, i+1)
-        plt.tick_params(labelbottom=False,
-                labelleft=False,
-                labelright=False,
-                labeltop=False,
-                bottom=False,
-                left=False,
-                right=False,
-                top=False)
-
-        plt.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
     plt.title("epoch = {}".format(epoch))
+    plt.tick_params(labelbottom=False,
+                    labelleft=False,
+                    labelright=False,
+                    labeltop=False,
+                    bottom=False,
+                    left=False,
+                    right=False,
+                    top=False)
+
+    for i in range(5):
+        ax = fig.add_subplot(3, 5, i+1)
+        ax.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
+        ax.set_axis_off()
+
+        ax = fig.add_subplot(3, 5, i+6)
+        ax.imshow(attention_map1[i].cpu().detach().numpy(), 'gray')
+        ax.set_axis_off()
+
+        ax = fig.add_subplot(3, 5, i+11)
+        ax.imshow(attention_map2[i].cpu().detach().numpy(), 'gray')
+        ax.set_axis_off()
+
+    
     plt.savefig(generate_img_path + "Generate_epoch{}.jpg".format(epoch))
 
 
@@ -59,11 +69,10 @@ def train_model(G, D, dataloader, num_epochs, nz, mini_batch_size, device):
     batch_size = dataloader.batch_size
 
     # 画像生成可視化用
-    fixed_z = torch.randn(10, nz)
+    fixed_z = torch.randn(5, nz)
     fixed_z = fixed_z.view(fixed_z.size(0), fixed_z.size(1), 1, 1)
 
     iteration = 1
-    logs = []
 
     # 各epochでの損失を記録
     G_losses = []

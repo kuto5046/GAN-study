@@ -30,7 +30,7 @@ class Self_Attention(nn.Module):
             in_channels=in_dim, out_channels=in_dim, kernel_size=1)
 
         # Attention Map作成時の規格化のソフトマックス
-        self.softmax = nn.Softmax(dim=-2)  #TODO なぜ-2?
+        self.softmax = nn.Softmax(dim=-2)
 
         # 元の入力xとSelf-Attention Mapであるoを足し算するときの係数
         # output = x +gamma*o
@@ -59,7 +59,8 @@ class Self_Attention(nn.Module):
         # Self-Attention Mapを計算する
         proj_value = self.value_conv(X).view(
             X.shape[0], -1, X.shape[2]*X.shape[3])  # サイズ：B,C,N
-        o = torch.bmm(proj_value, attention_map.permute(0, 2, 1))  # Attention Mapは転置してかけ算
+        o = torch.bmm(proj_value, attention_map.permute(
+            0, 2, 1))  # Attention Mapは転置してかけ算
 
         # Self-Attention MapであるoのテンソルサイズをXにそろえて、出力にする
         o = o.view(X.shape[0], X.shape[1], X.shape[2], X.shape[3])
@@ -169,7 +170,7 @@ class Discriminator(nn.Module):
         out = self.layer3(out)
         out, attention_map1 = self.self_attention1(out) 
         out = self.layer4(out)
-        out, attention_map2 = self.self_attention1(out) 
+        out, attention_map2 = self.self_attention2(out) 
         out = self.last(out)
 
         return out, attention_map1, attention_map2

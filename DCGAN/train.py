@@ -19,21 +19,12 @@ def generate_img(G, epoch, fixed_z, device):
 
     # 出力
     fig = plt.figure(figsize=(15, 6))
-    
-    for i in range(0, 10):
-        # 上段に訓練データを
-        plt.subplot(2, 5, i+1)
-        plt.tick_params(labelbottom=False,
-                labelleft=False,
-                labelright=False,
-                labeltop=False,
-                bottom=False,
-                left=False,
-                right=False,
-                top=False)
-
-        plt.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
     plt.title("epoch = {}".format(epoch))
+    for i in range(0, 10):
+        ax = fig.add_subplot(2, 5, i+1)
+        ax.set_axis_off()
+        ax.imshow(fake_images[i][0].cpu().detach().numpy(), 'gray')
+
     plt.savefig(generate_img_path + "Generate_epoch{}.jpg".format(epoch))
 
 

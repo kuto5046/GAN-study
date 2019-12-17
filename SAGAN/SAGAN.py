@@ -54,14 +54,14 @@ def main():
     nz = 100
     mini_batch_size = 64
     image_size = 64
-    num_epochs = 2
+    num_epochs = 200
 
     # GPUの選択
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("Using device: ", device)  
 
     # MNISTデータの読み込み
-    load_dataset()
+    # load_dataset()
 
     # Datasetを作成
     train_data_list = make_datapath_list()
